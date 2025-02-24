@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Win an iPhone 16 Pro</title>
+    <title>Win an iPhone 16 Pro</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
@@ -23,30 +23,69 @@
         </div>
     </header>
 
+    <!-- Firebase setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <script>
-        let timeLeft = 60;
-        const timerElement = document.getElementById("timer");
-        const ctaButton = document.getElementById("cta-button");
+      // Configurația Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyD6MYpsLjZ2XjBrULKv1duarIaD41E_rRg",
+        authDomain: "create-project-f44cc.firebaseapp.com",
+        databaseURL: "https://create-project-f44cc-default-rtdb.firebaseio.com",
+        projectId: "create-project-f44cc",
+        storageBucket: "create-project-f44cc.firebasestorage.app",
+        messagingSenderId: "67927552764",
+        appId: "1:67927552764:web:78d142602fa5433b7f1d79",
+        measurementId: "G-17YDNZTKRG"
+      };
 
-        function updateTimer() {
-            if (timeLeft > 0) {
-                timeLeft--;
-                timerElement.textContent = timeLeft;
-                setTimeout(updateTimer, 1000);
-            } else {
-               timerElement.textContent = "Time Expired!";
-            }
-        }
-        updateTimer();
+      // Inițializarea Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database(app);
 
-        ctaButton.addEventListener("click", function(event) {
-            event.preventDefault();
-            ctaButton.style.transform = "scale(1.2)";
-            ctaButton.style.transition = "transform 0.3s ease-in-out";
-            setTimeout(() => {
-                window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
-            }, 300);
-        });
+      let timeLeft = 60;
+      const timerElement = document.getElementById("timer");
+      const ctaButton = document.getElementById("cta-button");
+
+      function updateTimer() {
+          if (timeLeft > 0) {
+              timeLeft--;
+              timerElement.textContent = timeLeft;
+              setTimeout(updateTimer, 1000);
+          } else {
+              timerElement.textContent = "Time Expired!";
+          }
+      }
+      updateTimer();
+
+      // Colectează IP-ul și țara utilizatorului
+      fetch("http://ip-api.com/json/")
+          .then(response => response.json())
+          .then(data => {
+              const ip = data.query;
+              const country = data.country;
+              saveData(ip, country);  // Salvează datele în Firebase
+          })
+          .catch(error => console.error("Eroare:", error));
+
+      // Funcția de salvare a datelor în Firebase
+      function saveData(ip, country) {
+          const newEntryRef = database.ref('visitors/').push();
+          newEntryRef.set({
+              ip: ip,
+              country: country,
+              timestamp: new Date().toISOString()
+          });
+      }
+
+      // Redirecționare la click
+      ctaButton.addEventListener("click", function(event) {
+          event.preventDefault();
+          setTimeout(() => {
+              window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
+          }, 300);
+      });
     </script>
 </body>
 </html>
+
