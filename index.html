@@ -13,78 +13,40 @@
             <source src="background.mp4" type="video/mp4">
         </video>
         <div class="content">
-          <h1>Win an <span>iPhone 16 Pro</span>!</h1>
-           <p>Join now for a chance to own the latest iPhone.</p>
-           <div class="timer" id="timer">60</div>
+            <h1>Win an <span>iPhone 16 Pro</span>!</h1>
+            <p>Join now for a chance to own the latest iPhone.</p>
+            <div class="timer" id="timer">60</div>
             <div class="cta-container">
-              <a href="#" class="cta-button" id="cta-button">Sign up now</a>
+                <a href="#" class="cta-button" id="cta-button">Sign up now</a>
                 <img src="iphone.png" alt="iPhone 16 Pro" class="phone-image">
             </div>
         </div>
     </header>
 
-    <!-- Firebase setup -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <script>
-      // Configurația Firebase
-      const firebaseConfig = {
-        apiKey: "AIzaSyD6MYpsLjZ2XjBrULKv1duarIaD41E_rRg",
-        authDomain: "create-project-f44cc.firebaseapp.com",
-        databaseURL: "https://create-project-f44cc-default-rtdb.firebaseio.com",
-        projectId: "create-project-f44cc",
-        storageBucket: "create-project-f44cc.firebasestorage.app",
-        messagingSenderId: "67927552764",
-        appId: "1:67927552764:web:78d142602fa5433b7f1d79",
-        measurementId: "G-17YDNZTKRG"
-      };
+        let timeLeft = 60;
+        const timerElement = document.getElementById("timer");
+        const ctaButton = document.getElementById("cta-button");
 
-      // Inițializarea Firebase
-      const app = firebase.initializeApp(firebaseConfig);
-      const database = firebase.database(app);
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent = "Time Expired!";
+            }
+        }
+        updateTimer();
 
-      let timeLeft = 60;
-      const timerElement = document.getElementById("timer");
-      const ctaButton = document.getElementById("cta-button");
+        ctaButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            ctaButton.style.transform = "scale(1.2)";
+            ctaButton.style.transition = "transform 0.3s ease-in-out";
 
-      function updateTimer() {
-          if (timeLeft > 0) {
-              timeLeft--;
-              timerElement.textContent = timeLeft;
-              setTimeout(updateTimer, 1000);
-          } else {
-              timerElement.textContent = "Time Expired!";
-          }
-      }
-      updateTimer();
-
-      // Colectează IP-ul și țara utilizatorului
-      fetch("http://ip-api.com/json/")
-          .then(response => response.json())
-          .then(data => {
-              const ip = data.query;
-              const country = data.country;
-              saveData(ip, country);  // Salvează datele în Firebase
-          })
-          .catch(error => console.error("Eroare:", error));
-
-      // Funcția de salvare a datelor în Firebase
-      function saveData(ip, country) {
-          const newEntryRef = database.ref('visitors/').push();
-          newEntryRef.set({
-              ip: ip,
-              country: country,
-              timestamp: new Date().toISOString()
-          });
-      }
-
-      // Redirecționare la click
-      ctaButton.addEventListener("click", function(event) {
-          event.preventDefault();
-          setTimeout(() => {
-              window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
-          }, 300);
-      });
+            // Folosim o funcție normală pentru a face redirecționarea fără setTimeout cu stringuri
+            window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
+        });
     </script>
 </body>
 </html>
